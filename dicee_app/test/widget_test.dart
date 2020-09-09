@@ -12,8 +12,6 @@ import 'package:dicee_app/main.dart';
 
 void main() {
   testWidgets('Dice Roll Works', (WidgetTester tester) async {
-    expect(DicePage().rollDice(), greaterThan(0));
-    expect(DicePage().rollDice(), lessThanOrEqualTo(6));
 
   });
 }
