@@ -27,29 +27,19 @@ class _InputPageState extends State<InputPage> {
                   Expanded(
                     child: ReusableCard(
                       color: backgroundCardColor,
-                      child: Column(
-                        children: <Widget>[
-                          Icon(
-                            FontAwesomeIcons.mars,
-                            size: 80.0,
-                          ),
-                          SizedBox(
-                            height: 15.0,
-                          ),
-                          Text(
-                            'MALE',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              color: Color(0xFF8D8E98),
-                            ),
-                          ),
-                        ],
+                      child: IconContentWidget(
+                        text: 'MALE',
+                        iconography: FontAwesomeIcons.mars,
                       ),
                     ),
                   ),
                   Expanded(
                     child: ReusableCard(
                       color: backgroundCardColor,
+                      child: IconContentWidget(
+                        text: 'FEMALE',
+                        iconography: FontAwesomeIcons.venus,
+                      ),
                     ),
                   ),
                 ],
@@ -91,6 +81,36 @@ class _InputPageState extends State<InputPage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class IconContentWidget extends StatelessWidget {
+  final String text;
+  final IconData iconography;
+
+  IconContentWidget({this.text, this.iconography});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Icon(
+          iconography,
+          size: 80.0,
+        ),
+        SizedBox(
+          height: 15.0,
+        ),
+        Text(
+          text,
+          style: TextStyle(
+            fontSize: 18.0,
+            color: Color(0xFF8D8E98),
+          ),
+        ),
+      ],
     );
   }
 }
