@@ -2,11 +2,8 @@ import 'package:bmi_calculator/reusable_content.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'constants.dart';
 import 'icon_content.dart';
-
-const bottomContainerHeight = 80.0;
-const Color backgroundCardColor = Color(0xFF1D1E33);
-const Color bottomButtonColor = Color(0xFFEB1555);
 
 class InputPage extends StatefulWidget {
   @override
@@ -55,31 +52,27 @@ class _InputPageState extends State<InputPage> {
               child: Row(
                 children: [
                   Expanded(
-                    child: GestureDetector(
-                      onTap: () {
+                    child: ReusableCard(
+                      onTapFunction: () {
                         _determineButtonState(Gender.male);
                       },
-                      child: ReusableCard(
-                        isActive: isMaleButtonActive,
-                        child: IconContentWidget(
-                          text: 'MALE',
-                          iconography: FontAwesomeIcons.mars,
-                        ),
+                      isActive: isMaleButtonActive,
+                      child: IconContentWidget(
+                        text: 'MALE',
+                        iconography: FontAwesomeIcons.mars,
                       ),
                     ),
                   ),
                   Expanded(
-                    child: GestureDetector(
-                      onTap: () {
+                    child: ReusableCard(
+                      onTapFunction: () {
                         _determineButtonState(Gender.female);
                       },
-                      child: ReusableCard(
-                        color: backgroundCardColor,
-                        isActive: isFemaleButtonActive,
-                        child: IconContentWidget(
-                          text: 'FEMALE',
-                          iconography: FontAwesomeIcons.venus,
-                        ),
+                      color: kBackgroundCardColor,
+                      isActive: isFemaleButtonActive,
+                      child: IconContentWidget(
+                        text: 'FEMALE',
+                        iconography: FontAwesomeIcons.venus,
                       ),
                     ),
                   ),
@@ -91,8 +84,32 @@ class _InputPageState extends State<InputPage> {
                 children: [
                   Expanded(
                     child: ReusableCard(
-                      color: backgroundCardColor,
+                      onTapFunction: () {},
+                      color: kBackgroundCardColor,
                       isActive: true,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'HEIGHT',
+                            style: kLabelTextStyle,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.baseline,
+                            children: <Widget>[
+                              Text(
+                                '180',
+                                style: kLargeTextStyle,
+                              ),
+                              Text(
+                                'in',
+                                style: kLabelTextStyle,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -103,13 +120,13 @@ class _InputPageState extends State<InputPage> {
                 children: [
                   Expanded(
                     child: ReusableCard(
-                      //color: backgroundCardColor,
+                      onTapFunction: () {},
                       isActive: true,
                     ),
                   ),
                   Expanded(
                     child: ReusableCard(
-                      //color: backgroundCardColor,
+                      onTapFunction: () {},
                       isActive: true,
                     ),
                   ),
@@ -117,10 +134,10 @@ class _InputPageState extends State<InputPage> {
               ),
             ),
             Container(
-              color: bottomButtonColor,
+              color: kBottomButtonColor,
               margin: EdgeInsets.only(top: 10),
               width: double.infinity,
-              height: bottomContainerHeight,
+              height: kBottomContainerHeight,
             )
           ],
         ),
