@@ -6,7 +6,6 @@ import 'icon_content.dart';
 
 const bottomContainerHeight = 80.0;
 const Color backgroundCardColor = Color(0xFF1D1E33);
-const Color inactiveCardColor = Color(0xFF111328);
 const Color bottomButtonColor = Color(0xFFEB1555);
 
 class InputPage extends StatefulWidget {
