@@ -14,9 +14,33 @@ class InputPage extends StatefulWidget {
   _InputPageState createState() => _InputPageState();
 }
 
+enum Gender {
+  male,
+  female,
+}
+
 class _InputPageState extends State<InputPage> {
   bool isMaleButtonActive = false;
   bool isFemaleButtonActive = false;
+
+  _determineButtonState(Gender gender) {
+    setState(() {
+      switch (gender) {
+        case Gender.male:
+          isMaleButtonActive = true;
+          isFemaleButtonActive = false;
+          break;
+        case Gender.female:
+          isFemaleButtonActive = true;
+          isMaleButtonActive = false;
+          break;
+        default:
+          isFemaleButtonActive = false;
+          isMaleButtonActive = false;
+          break;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +58,7 @@ class _InputPageState extends State<InputPage> {
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        setState(() {
-                          isMaleButtonActive = true;
-                          isFemaleButtonActive = false;
-                        });
+                        _determineButtonState(Gender.male);
                       },
                       child: ReusableCard(
                         isActive: isMaleButtonActive,
@@ -51,10 +72,7 @@ class _InputPageState extends State<InputPage> {
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        setState(() {
-                          isFemaleButtonActive = true;
-                          isMaleButtonActive = false;
-                        });
+                        _determineButtonState(Gender.female);
                       },
                       child: ReusableCard(
                         color: backgroundCardColor,
@@ -86,13 +104,13 @@ class _InputPageState extends State<InputPage> {
                 children: [
                   Expanded(
                     child: ReusableCard(
-                      color: backgroundCardColor,
+                      //color: backgroundCardColor,
                       isActive: true,
                     ),
                   ),
                   Expanded(
                     child: ReusableCard(
-                      color: backgroundCardColor,
+                      //color: backgroundCardColor,
                       isActive: true,
                     ),
                   ),

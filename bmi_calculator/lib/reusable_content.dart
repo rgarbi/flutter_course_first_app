@@ -16,17 +16,9 @@ class ReusableCard extends StatelessWidget {
       margin: EdgeInsets.all(15.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
-        color: _getCardColor(),
+        color: isActive == true ? activeCardColor : inactiveCardColor,
       ),
       child: child,
     );
-  }
-
-  Color _getCardColor() {
-    if(isActive) {
-      return activeCardColor;
-    }
-
-    return inactiveCardColor;
   }
 }
