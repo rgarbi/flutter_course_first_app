@@ -16,6 +16,8 @@ enum Gender {
 }
 
 class _InputPageState extends State<InputPage> {
+  int height = 60;
+
   bool isMaleButtonActive = false;
   bool isFemaleButtonActive = false;
 
@@ -97,9 +99,10 @@ class _InputPageState extends State<InputPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.baseline,
+                            textBaseline: TextBaseline.alphabetic,
                             children: <Widget>[
                               Text(
-                                '180',
+                                height.toString(),
                                 style: kLargeTextStyle,
                               ),
                               Text(
@@ -107,6 +110,18 @@ class _InputPageState extends State<InputPage> {
                                 style: kLabelTextStyle,
                               ),
                             ],
+                          ),
+                          Slider(
+                            value: height.toDouble(),
+                            min: 24.0,
+                            max: 120.0,
+                            activeColor: Color(0xFFEB1555),
+                            inactiveColor: Color(0xFF8D8E98),
+                            onChanged: (double newValue) {
+                              setState(() {
+                                height = newValue.round();
+                              });
+                            },
                           ),
                         ],
                       ),
