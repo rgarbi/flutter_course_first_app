@@ -255,16 +255,21 @@ class _InputPageState extends State<InputPage> {
               ),
             ),
             Container(
-                color: kBottomButtonColor,
-                margin: EdgeInsets.only(top: 10),
-                width: double.infinity,
-                height: kBottomContainerHeight,
-                child: FlatButton(
-                  child: Text('Calculate'),
-                  onPressed: () {
-                    print('wat');
-                  },
-                ))
+              color: kBottomButtonColor,
+              margin: EdgeInsets.only(top: 10),
+              width: double.infinity,
+              padding: EdgeInsets.only(bottom: 20),
+              height: kBottomContainerHeight,
+              child: FlatButton(
+                child: Text(
+                  'CALCULATE',
+                  style: kLargeButtonTextStyle,
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/result');
+                },
+              ),
+            ),
           ],
         ),
       ),

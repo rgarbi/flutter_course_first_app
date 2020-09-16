@@ -10,6 +10,25 @@ const kLargeTextStyle = TextStyle(
   fontWeight: FontWeight.w900,
 );
 
+const kTitleTextStyle = TextStyle(
+  fontSize: 50,
+  fontWeight: FontWeight.bold,
+);
+
+const kLargeButtonTextStyle = TextStyle(
+  fontSize: 25,
+  fontWeight: FontWeight.bold,
+);
+
+const kDescriptionTextStyle = TextStyle(
+  fontSize: 22.0,
+);
+
+const kBMITextStyle = TextStyle(
+  fontSize: 100,
+  fontWeight: FontWeight.bold,
+);
+
 const kBottomContainerHeight = 80.0;
 const Color kBackgroundCardColor = Color(0xFF1D1E33);
 const Color kBottomButtonColor = Color(0xFFEB1555);
