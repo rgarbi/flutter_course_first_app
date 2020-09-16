@@ -1,13 +1,15 @@
+import 'package:bmi_calculator/components/bottom_button.dart';
+import 'package:bmi_calculator/components/reusable_content.dart';
 import 'package:bmi_calculator/constants.dart';
-import 'package:bmi_calculator/reusable_content.dart';
 import 'package:flutter/material.dart';
 
-class ResultPage extends StatefulWidget {
-  @override
-  _ResultPageState createState() => _ResultPageState();
-}
+class ResultPage extends StatelessWidget {
+  final String bmiResult;
+  final String resultText;
+  final String interpretation;
 
-class _ResultPageState extends State<ResultPage> {
+  ResultPage(this.bmiResult, this.resultText, this.interpretation);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +24,8 @@ class _ResultPageState extends State<ResultPage> {
               children: <Widget>[
                 Expanded(
                   child: Container(
+                    padding: EdgeInsets.all(15),
+                    alignment: Alignment.bottomLeft,
                     child: Text(
                       'Your Result',
                       style: kTitleTextStyle,
@@ -40,16 +44,16 @@ class _ResultPageState extends State<ResultPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      'Normal',
+                      resultText.toUpperCase(),
                       style: TextStyle(
                         color: Color(0xFF24D876),
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Text('26.7', style: kBMITextStyle),
+                    Text(bmiResult, style: kBMITextStyle),
                     Text(
-                      'You have a higher than normal body weight. Try to exercise more.',
+                      interpretation,
                       style: kDescriptionTextStyle,
                       textAlign: TextAlign.center,
                     ),
@@ -57,21 +61,11 @@ class _ResultPageState extends State<ResultPage> {
                 ),
               ),
             ),
-            Container(
-              color: kBottomButtonColor,
-              margin: EdgeInsets.only(top: 10),
-              width: double.infinity,
-              padding: EdgeInsets.only(bottom: 20),
-              height: kBottomContainerHeight,
-              child: FlatButton(
-                child: Text(
-                  'RE-CALCULATE',
-                  style: kLargeButtonTextStyle,
-                ),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/');
-                },
-              ),
+            BottomButton(
+              text: 'RE-CALCULATE',
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
           ],
         ),

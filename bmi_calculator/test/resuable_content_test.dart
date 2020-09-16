@@ -6,7 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:bmi_calculator/constants.dart';
-import 'package:bmi_calculator/reusable_content.dart';
+import 'package:bmi_calculator/components/reusable_content.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
