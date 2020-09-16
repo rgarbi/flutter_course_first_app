@@ -17,6 +17,7 @@ enum Gender {
 
 class _InputPageState extends State<InputPage> {
   int height = 60;
+  int weight = 120;
 
   bool isMaleButtonActive = false;
   bool isFemaleButtonActive = false;
@@ -111,17 +112,27 @@ class _InputPageState extends State<InputPage> {
                               ),
                             ],
                           ),
-                          Slider(
-                            value: height.toDouble(),
-                            min: 24.0,
-                            max: 120.0,
-                            activeColor: Color(0xFFEB1555),
-                            inactiveColor: Color(0xFF8D8E98),
-                            onChanged: (double newValue) {
-                              setState(() {
-                                height = newValue.round();
-                              });
-                            },
+                          SliderTheme(
+                            data: SliderTheme.of(context).copyWith(
+                              inactiveTrackColor: Color(0xFF8D8E98),
+                              activeTrackColor: Colors.white,
+                              overlayColor: Color(0x29EB1555),
+                              thumbColor: Color(0xFFEB1555),
+                              thumbShape:
+                              RoundSliderThumbShape(enabledThumbRadius: 15),
+                              overlayShape:
+                              RoundSliderOverlayShape(overlayRadius: 25),
+                            ),
+                            child: Slider(
+                              value: height.toDouble(),
+                              min: 24.0,
+                              max: 120.0,
+                              onChanged: (double newValue) {
+                                setState(() {
+                                  height = newValue.round();
+                                });
+                              },
+                            ),
                           ),
                         ],
                       ),
@@ -137,6 +148,43 @@ class _InputPageState extends State<InputPage> {
                     child: ReusableCard(
                       onTapFunction: () {},
                       isActive: true,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'WEIGHT',
+                            style: kLabelTextStyle,
+                          ),
+                          Text(
+                            weight.toString(),
+                            style: kLargeTextStyle,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              RoundIconButton(
+                                icon: FontAwesomeIcons.plus,
+                                onPressed: () {
+                                  setState(() {
+                                    ++weight;
+                                  });
+                                },
+                              ),
+                              SizedBox(
+                                width: 10.0,
+                              ),
+                              RoundIconButton(
+                                icon: FontAwesomeIcons.minus,
+                                onPressed: () {
+                                  setState(() {
+                                    --weight;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Expanded(
@@ -157,6 +205,25 @@ class _InputPageState extends State<InputPage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class RoundIconButton extends StatelessWidget {
+  final IconData icon;
+  final Function onPressed;
+
+  RoundIconButton({this.icon, this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      onPressed: onPressed,
+      shape: CircleBorder(),
+      fillColor: Color(0xFF4C4F5E),
+      constraints: BoxConstraints.tightFor(width: 56.0, height: 56.0),
+      elevation: 6.0,
+      child: Icon(icon),
     );
   }
 }
