@@ -6,6 +6,10 @@ class Location {
 
   Future<void> getCurrentLocation() async {
     try {
+
+
+
+
       Position position =
           await getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
       latitude = position.latitude;
