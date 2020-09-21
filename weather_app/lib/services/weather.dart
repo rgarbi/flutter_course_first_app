@@ -1,4 +1,30 @@
+import 'package:flutter/material.dart';
+import 'package:weather_app/auth/keys.dart';
+import 'package:weather_app/models/weather_data.dart';
+
+import 'networking.dart';
+
 class WeatherModel {
+
+
+  Future<WeatherData> getData(lat, long) async {
+    Secret secret =
+    await SecretLoader(secretPath: 'assets/secrets.json').load();
+    String key = secret.apikey;
+
+    var data = await NetworkHelper(
+        'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$long&appid=$key&units=imperial')
+        .getData();
+
+    double temperature = data['main']['temp'];
+    int condition = data['weather'][0]['id'];
+    String cityName = data['name'];
+    return WeatherData(temperature, condition, cityName);
+
+  }
+
+
+
   String getWeatherIcon(int condition) {
     if (condition < 300) {
       return '🌩';
@@ -30,4 +56,5 @@ class WeatherModel {
       return 'Bring a 🧥 just in case';
     }
   }
+
 }
