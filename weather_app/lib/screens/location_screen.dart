@@ -1,13 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/models/weather_data.dart';
+import 'package:weather_app/services/weather.dart';
 import 'package:weather_app/utilities/constants.dart';
 
-
 class LocationScreen extends StatefulWidget {
+  final WeatherData locationWeather;
+
+  LocationScreen({this.locationWeather});
+
   @override
   _LocationScreenState createState() => _LocationScreenState();
 }
 
 class _LocationScreenState extends State<LocationScreen> {
+  int temperature;
+  int condition;
+  String cityName;
+
+  @override
+  void initState() {
+    super.initState();
+    updateUI(widget.locationWeather);
+  }
+
+  void updateUI(WeatherData data) {
+    temperature = data.temperature.toInt();
+    condition = data.condition;
+    cityName = data.cityName;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,11 +71,11 @@ class _LocationScreenState extends State<LocationScreen> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      '32°',
+                      '$temperature°',
                       style: kTempTextStyle,
                     ),
                     Text(
-                      '☀️',
+                      WeatherModel().getWeatherIcon(condition),
                       style: kConditionTextStyle,
                     ),
                   ],
@@ -63,7 +84,7 @@ class _LocationScreenState extends State<LocationScreen> {
               Padding(
                 padding: EdgeInsets.only(right: 15.0),
                 child: Text(
-                  "It's 🍦 time in San Francisco!",
+                  "${WeatherModel().getMessage(temperature)} in $cityName!",
                   textAlign: TextAlign.right,
                   style: kMessageTextStyle,
                 ),
@@ -75,9 +96,3 @@ class _LocationScreenState extends State<LocationScreen> {
     );
   }
 }
-
-
-
-//double temperature = decodedData['main']['temp'];
-//int condition = decodedData['weather'][0]['id'];
-//String cityName = decodedData['name'];
