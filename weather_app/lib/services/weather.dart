@@ -6,13 +6,30 @@ import 'networking.dart';
 const openWeatherMapUrl = 'https://api.openweathermap.org/data/2.5/weather';
 
 class WeatherModel {
-  Future<WeatherData> getData(lat, long) async {
+  Future<String> _getApiKey() async {
     Secret secret =
         await SecretLoader(secretPath: 'assets/secrets.json').load();
-    String key = secret.apikey;
+    return secret.apikey;
+  }
+
+  Future<WeatherData> getLocationWeather(lat, long) async {
+    String key = await _getApiKey();
 
     var data = await NetworkHelper(
             '$openWeatherMapUrl?lat=$lat&lon=$long&appid=$key&units=imperial')
+        .getData();
+
+    double temperature = data['main']['temp'];
+    int condition = data['weather'][0]['id'];
+    String cityName = data['name'];
+    return WeatherData(temperature, condition, cityName);
+  }
+
+  Future<WeatherData> getCityWeather(String city) async {
+    String key = await _getApiKey();
+
+    var data = await NetworkHelper(
+            '$openWeatherMapUrl?q=$city&appid=$key&units=imperial')
         .getData();
 
     double temperature = data['main']['temp'];
