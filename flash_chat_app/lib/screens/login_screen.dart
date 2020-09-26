@@ -1,4 +1,4 @@
-import 'package:flash_chat_app/components/RoundedButton.dart';
+import 'package:flash_chat_app/components/rounded_button.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
