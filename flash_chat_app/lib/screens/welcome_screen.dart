@@ -1,4 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flash_chat_app/components/rounded_button.dart';
 import 'package:flash_chat_app/screens/login_screen.dart';
 import 'package:flash_chat_app/screens/registration_screen.dart';
@@ -18,6 +19,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
 
   @override
   void initState() {
+    Firebase.initializeApp();
     super.initState();
     controller =
         AnimationController(duration: Duration(seconds: 1), vsync: this);
