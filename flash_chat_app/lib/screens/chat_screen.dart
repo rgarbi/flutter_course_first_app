@@ -35,7 +35,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void messagesStream() async {
-    await _firestore.collection('messages').snapshots().forEach(
+    await _firestore.collection(kFireStoreCollection).snapshots().forEach(
         (event) => event.docs.forEach((message) => print(message.data())));
   }
 
@@ -78,7 +78,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     onPressed: () async {
                       try {
                         DocumentReference message = await _firestore
-                            .collection('messages')
+                            .collection(kFireStoreCollection)
                             .add({
                           'text': messageText,
                           'sender': loggedInUser.email
