@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flash_chat_app/components/message_bubble.dart';
 import 'package:flash_chat_app/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -121,14 +122,11 @@ class MessagesStream extends StatelessWidget {
           );
         }
 
-        final messages = snapshot.data.docs;
-        List<Widget> messageBubbles = [];
-        for (var message in messages) {
-          final messageText = message.data()['text'];
-          final messageSender = message.data()['sender'];
-          messageBubbles
-              .add(MessageBubble(sender: messageSender, text: messageText));
-        }
+        List<Widget> messageBubbles = snapshot.data.docs
+            .map((message) => MessageBubble(
+                sender: message.data()['sender'], text: message.data()['text']))
+            .toList();
+
         return Expanded(
           child: ListView(
             padding: EdgeInsets.symmetric(
@@ -139,47 +137,6 @@ class MessagesStream extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class MessageBubble extends StatelessWidget {
-  MessageBubble({@required this.sender, @required this.text});
-
-  final String sender;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(10.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Text(
-            '$sender',
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 12,
-            ),
-          ),
-          Material(
-            borderRadius: BorderRadius.circular(30.0),
-            elevation: 5.0,
-            color: Colors.lightBlueAccent,
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              child: Text(
-                '$text',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15.0,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
