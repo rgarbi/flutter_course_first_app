@@ -24,11 +24,19 @@ class MessageBubble extends StatelessWidget {
   }
 
   Color getBackgroundColor() {
-    return isSameUser() ? Colors.lightBlueAccent : Colors.white70;
+    return isSameUser() ? Colors.lightBlueAccent : Colors.white;
   }
 
   BorderRadius getBorderRadius() {
     return isSameUser() ? pointRight : pointLeft;
+  }
+
+  Color getTextColor() {
+    return isSameUser() ? Colors.white : Colors.black54;
+  }
+
+  CrossAxisAlignment getAlignment() {
+    return isSameUser() ? CrossAxisAlignment.end : CrossAxisAlignment.start;
   }
 
   @override
@@ -36,7 +44,7 @@ class MessageBubble extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(10.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: getAlignment(),
         children: [
           Text(
             '$sender',
@@ -54,7 +62,7 @@ class MessageBubble extends StatelessWidget {
               child: Text(
                 '$text',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: getTextColor(),
                   fontSize: 15.0,
                 ),
               ),
