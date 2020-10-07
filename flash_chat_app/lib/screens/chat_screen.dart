@@ -119,10 +119,13 @@ class MessagesStream extends StatelessWidget {
                   text: message.data()['text'],
                   currentUser: AuthUtil().getCurrentUser().email,
                 ))
+            .toList()
+            .reversed
             .toList();
 
         return Expanded(
           child: ListView(
+            reverse: true,
             padding: EdgeInsets.symmetric(
               horizontal: 10.0,
               vertical: 20.0,
