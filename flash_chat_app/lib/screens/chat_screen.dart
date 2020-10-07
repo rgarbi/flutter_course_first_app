@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat_app/components/message_bubble.dart';
 import 'package:flash_chat_app/constants.dart';
+import 'package:flash_chat_app/util/auth_util.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -21,19 +22,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     super.initState();
-    getCurrentUser();
-  }
-
-  void getCurrentUser() {
-    try {
-      final user = _auth.currentUser;
-
-      if (user != null) {
-        loggedInUser = user;
-      }
-    } catch (error) {
-      print(error);
-    }
+    loggedInUser = AuthUtil().getCurrentUser();
   }
 
   @override
@@ -74,7 +63,8 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   FlatButton(
                     onPressed: () async {
-                      if (messageText.trim().isNotEmpty) {
+                      if (messageText != null &&
+                          messageText.trim().isNotEmpty) {
                         try {
                           DocumentReference message = await _firestore
                               .collection(kFireStoreCollection)
@@ -85,6 +75,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
                           if (message != null) {
                             messageTextController.clear();
+                            messageText = "";
                           }
                         } catch (error) {
                           print(error);
@@ -124,7 +115,10 @@ class MessagesStream extends StatelessWidget {
 
         List<Widget> messageBubbles = snapshot.data.docs
             .map((message) => MessageBubble(
-                sender: message.data()['sender'], text: message.data()['text']))
+                  sender: message.data()['sender'],
+                  text: message.data()['text'],
+                  currentUser: AuthUtil().getCurrentUser().email,
+                ))
             .toList();
 
         return Expanded(
