@@ -1,9 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:todo_app/models/task.dart';
 import 'package:todo_app/screens/add_task_screen.dart';
 import 'package:todo_app/widgets/tasks_list.dart';
 
-class TasksScreen extends StatelessWidget {
+class TasksScreen extends StatefulWidget {
+  @override
+  _TasksScreenState createState() => _TasksScreenState();
+}
+
+class _TasksScreenState extends State<TasksScreen> {
+  final List<Task> tasks = [];
+  String newTaskName;
+
+  void saveTask(context) {
+    if (newTaskName.isNotEmpty) {
+      setState(() {
+        tasks.add(Task(name: newTaskName, isDone: false));
+      });
+      Navigator.pop(context);
+    }
+  }
+
+  void addTask(String value) {
+    newTaskName = value;
+  }
+
+  void toggleCheckBox(bool newValue, Task task) {
+    setState(() {
+      task.toggleDone();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,8 +42,10 @@ class TasksScreen extends StatelessWidget {
         onPressed: () {
           showModalBottomSheet(
             context: context,
-            isScrollControlled: true,
-            builder: (context) => AddTaskScreen(),
+            builder: (context) => AddTaskScreen(
+              getTextValue: addTask,
+              saveTask: saveTask,
+            ),
           );
         },
       ),
@@ -71,7 +101,7 @@ class TasksScreen extends StatelessWidget {
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20)),
               ),
-              child: TasksList(),
+              child: TasksList(tasks: tasks, toggleDone: toggleCheckBox,),
             ),
           ),
         ],
