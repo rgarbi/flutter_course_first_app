@@ -12,10 +12,10 @@ class TasksScreen extends StatefulWidget {
 class _TasksScreenState extends State<TasksScreen> {
   final List<Task> tasks = [];
 
-  void saveTask(context, String newTaskName) {
-    if (newTaskName.isNotEmpty) {
+  void saveTask(context, String newTaskTitle) {
+    if (newTaskTitle != null && newTaskTitle.trim().isNotEmpty) {
       setState(() {
-        tasks.add(Task(name: newTaskName, isDone: false));
+        tasks.add(Task(name: newTaskTitle, isDone: false));
       });
       Navigator.pop(context);
     }
