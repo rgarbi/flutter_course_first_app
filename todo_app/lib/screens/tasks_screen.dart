@@ -11,19 +11,14 @@ class TasksScreen extends StatefulWidget {
 
 class _TasksScreenState extends State<TasksScreen> {
   final List<Task> tasks = [];
-  String newTaskName;
 
-  void saveTask(context) {
+  void saveTask(context, String newTaskName) {
     if (newTaskName.isNotEmpty) {
       setState(() {
         tasks.add(Task(name: newTaskName, isDone: false));
       });
       Navigator.pop(context);
     }
-  }
-
-  void addTask(String value) {
-    newTaskName = value;
   }
 
   void toggleCheckBox(bool newValue, Task task) {
@@ -43,7 +38,6 @@ class _TasksScreenState extends State<TasksScreen> {
           showModalBottomSheet(
             context: context,
             builder: (context) => AddTaskScreen(
-              getTextValue: addTask,
               saveTask: saveTask,
             ),
           );
@@ -101,7 +95,10 @@ class _TasksScreenState extends State<TasksScreen> {
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20)),
               ),
-              child: TasksList(tasks: tasks, toggleDone: toggleCheckBox,),
+              child: TasksList(
+                tasks: tasks,
+                toggleDone: toggleCheckBox,
+              ),
             ),
           ),
         ],
