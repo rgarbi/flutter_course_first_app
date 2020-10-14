@@ -6,18 +6,6 @@ import 'package:todo_app/screens/add_task_screen.dart';
 import 'package:todo_app/widgets/tasks_list.dart';
 
 class TasksScreen extends StatelessWidget {
-  void saveTask(context, String newTaskTitle) {
-    if (newTaskTitle != null && newTaskTitle.trim().isNotEmpty) {
-      //Provider.of<TaskData>(context).tasks
-      //setState(() {
-      //  Provider.of<TaskData>(context)
-      //      .tasks
-      //      .add(Task(name: newTaskTitle, isDone: false));
-      //});
-      Navigator.pop(context);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,9 +16,7 @@ class TasksScreen extends StatelessWidget {
         onPressed: () {
           showModalBottomSheet(
             context: context,
-            builder: (context) => AddTaskScreen(
-              saveTask: saveTask,
-            ),
+            builder: (context) => AddTaskScreen(),
           );
         },
       ),

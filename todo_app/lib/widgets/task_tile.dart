@@ -4,8 +4,9 @@ import 'package:todo_app/models/task.dart';
 class TaskTile extends StatelessWidget {
   final Task task;
   final Function toggleCheckBox;
+  final Function onLongPress;
 
-  TaskTile({@required this.task, this.toggleCheckBox});
+  TaskTile({@required this.task, this.toggleCheckBox, this.onLongPress});
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +19,10 @@ class TaskTile extends StatelessWidget {
       ),
       trailing: Checkbox(
         activeColor: Colors.lightBlueAccent,
-        onChanged: (value) {
-          toggleCheckBox(value, task);
-        },
+        onChanged: toggleCheckBox,
         value: task.isDone,
       ),
+      onLongPress: onLongPress,
     );
   }
 }

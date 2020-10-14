@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/models/task.dart';
+import 'package:todo_app/models/task_data.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  final Function saveTask;
-
-  AddTaskScreen({@required this.saveTask});
-
   @override
   Widget build(BuildContext context) {
     String newTaskTitle;
@@ -42,7 +41,11 @@ class AddTaskScreen extends StatelessWidget {
               FlatButton(
                 color: Colors.lightBlueAccent,
                 onPressed: () {
-                  saveTask(context, newTaskTitle);
+                  if (newTaskTitle != null && newTaskTitle.trim().isNotEmpty) {
+                    Provider.of<TaskData>(context, listen: false)
+                        .add(Task(name: newTaskTitle, isDone: false));
+                    Navigator.pop(context);
+                  }
                 },
                 child: Text(
                   'Add',
