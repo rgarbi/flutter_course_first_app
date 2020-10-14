@@ -1,30 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:todo_app/models/task.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/models/task_data.dart';
 import 'package:todo_app/screens/add_task_screen.dart';
 import 'package:todo_app/widgets/tasks_list.dart';
 
-class TasksScreen extends StatefulWidget {
-  @override
-  _TasksScreenState createState() => _TasksScreenState();
-}
-
-class _TasksScreenState extends State<TasksScreen> {
-  final List<Task> tasks = [];
-
+class TasksScreen extends StatelessWidget {
   void saveTask(context, String newTaskTitle) {
     if (newTaskTitle != null && newTaskTitle.trim().isNotEmpty) {
-      setState(() {
-        tasks.add(Task(name: newTaskTitle, isDone: false));
-      });
+      //Provider.of<TaskData>(context).tasks
+      //setState(() {
+      //  Provider.of<TaskData>(context)
+      //      .tasks
+      //      .add(Task(name: newTaskTitle, isDone: false));
+      //});
       Navigator.pop(context);
     }
-  }
-
-  void toggleCheckBox(bool newValue, Task task) {
-    setState(() {
-      task.toggleDone();
-    });
   }
 
   @override
@@ -77,7 +68,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   ),
                 ),
                 Text(
-                  '${tasks.length} Tasks',
+                  '${Provider.of<TaskData>(context).taskCount} Tasks',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18.0,
@@ -95,10 +86,7 @@ class _TasksScreenState extends State<TasksScreen> {
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20)),
               ),
-              child: TasksList(
-                tasks: tasks,
-                toggleDone: toggleCheckBox,
-              ),
+              child: TasksList(),
             ),
           ),
         ],
